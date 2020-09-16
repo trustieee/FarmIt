@@ -12,7 +12,7 @@ public class UI_Inventory : MonoBehaviour
     {
         _inventory = GetComponentInParent<Inventory>();
         // todo: don't hardcode me bro
-        _inventorySlots = new List<RawImage>(20);
+        _inventorySlots = new List<RawImage>(GetComponentsInChildren<RawImage>());
     }
 
     private void Update()
