@@ -26,7 +26,8 @@ public class Plantable : MonoBehaviour
         _stage = 1;
 
         var stageCtr = 0;
-        for (var i = 1; i < FullMaturityDuration; i++)
+        // todo: this is ugly, clean this up
+        for (var i = 2; i < FullMaturityDuration; i++)
         {
             if (i % (int)(FullMaturityDuration / (GrowthTiers.Count - 1)) == 0)
             {

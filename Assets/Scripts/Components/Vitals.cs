@@ -9,7 +9,7 @@ public class Vitals : MonoBehaviour
     public int MaxHunger = 100;
 
     public int HungerDecayRate = 30;
-    public float HungerDecayBaseAmount = 2f;
+    public int HungerDecayBaseAmount = 2;
     public int HungerStarvingDamageAmount = 5;
 
     public float Health { get; private set; }
@@ -46,14 +46,27 @@ public class Vitals : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int amount)
     {
-        Health -= damage > Health ? Health : damage;
+        Debug.Log($"{amount} damage taken");
+        Health -= amount > Health ? Health : amount;
     }
 
     private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
         Died?.Invoke(this, null);
+    }
+
+    public void RestoreHealth(int amount)
+    {
+        Debug.Log($"{amount} health restored");
+        Health += amount + Health > MaxHealth ? MaxHealth - Health : amount;
+    }
+
+    public void RestoreHunger(int amount)
+    {
+        Debug.Log($"{amount} hunger restored");
+        Hunger += amount + Hunger > MaxHunger ? MaxHunger - Hunger : amount;
     }
 }

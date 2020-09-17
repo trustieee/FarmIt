@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public IEnumerable<Item> Items => _items.AsEnumerable();
+    public IEnumerable<InventoryItem> Items => _items.Values.AsEnumerable();
 
-    private List<Item> _items = new List<Item>();
+    private Dictionary<string, InventoryItem> _items = new Dictionary<string, InventoryItem>();
     private bool _showInventory;
 
     private UI_Inventory _uiInventory;
@@ -42,6 +42,16 @@ public class Inventory : MonoBehaviour
     public void AddItem(Item item)
     {
         Debug.Log($"Looted {item.ItemName}");
-        _items.Add(item);
+        if (_items.ContainsKey(item.ItemName))
+        {
+            // todo: implement max item amount?
+            _items[item.ItemName].Amount++;
+        }
+        else
+        {
+            _items.Add(item.ItemName, item.ToInventoryItem());
+        }
     }
+
+    public InventoryItem GetItem(string itemName) => _items[itemName];
 }
